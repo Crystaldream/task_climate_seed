@@ -1,0 +1,9 @@
+
+# Ignore library crates files
+Cargo.lock
+
+# Ignore generated files
+/target/
+
+#Ignore .vscode
+.vscode/
