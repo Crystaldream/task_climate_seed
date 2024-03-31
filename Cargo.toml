@@ -10,6 +10,10 @@ authors = ["Telmo Reinas .:: telmo.reinas@gmail.com ::. "]
 name = "task_climate_seed"
 path = "src/lib.rs"
 
+[[bin]]
+name = "task_climate_seed"
+path = "src/main.rs"
+
 [dependencies]
 axum = "0.7.5"
 env_logger = "0.11.3"

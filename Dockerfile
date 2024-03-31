@@ -9,10 +9,10 @@ WORKDIR /usr/src/task_climate_seed
 COPY . .
 
 # Build project
-RUN cargo build --release
+RUN cargo build --release --bin task_climate_seed
 
-# Expose port 8001
-EXPOSE 8001
+# Expose port 3000
+EXPOSE 3000
 
 # Run the api
-CMD cargo run
+CMD ["/usr/src/task_climate_seed/target/release/task_climate_seed"]
