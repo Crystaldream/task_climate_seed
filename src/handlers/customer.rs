@@ -5,6 +5,7 @@ use sqlx::{FromRow, Error, SqlitePool};
 use log::{error, info};
 use crate::utils::sqlite_utils::SqliteUtils;
 
+// Row struct to map each line of the result of the query to the CustomerOrderSummary view
 #[derive(Serialize, Deserialize, FromRow)]
 pub struct Row {
     #[serde(rename = "CustomerName")]
@@ -23,6 +24,7 @@ impl Customer {
         Customer
     }
 
+    // Function that queries the current results of CustomerOrderSummary view for the current year
     async fn fetch_view_customer_order_summary(pool: &SqlitePool) -> Result<Vec<Row>, Error> {
     
         let result: Vec<Row> = sqlx::query_as(
@@ -38,6 +40,7 @@ impl Customer {
     
     }
     
+    // Function that connects to the database, calls the function to query the CustomerOrderSummary view, handles errors and returns the results as JSON objects
     pub async fn top_customers() -> impl IntoResponse {
     
         match SqliteUtils::connect_db().await {
@@ -45,14 +48,6 @@ impl Customer {
             Ok(pool) => match Customer::fetch_view_customer_order_summary(&pool).await {
     
                 Ok(rows) => {
-    
-                    let formatted_rows: Vec<serde_json::Value> = rows.iter().map(|row| {
-                        serde_json::json!({
-                            "customer_name": row.customer_name,
-                            "total_spent": format!("{:.2}", row.total_spent),
-                            "order_count": row.order_count
-                        })
-                    }).collect();
         
                     if rows.is_empty() {
 
@@ -69,6 +64,14 @@ impl Customer {
                     } else {
 
                         info!("View CustomerOrderSummary response successful");
+
+                        let formatted_rows: Vec<serde_json::Value> = rows.iter().map(|row| {
+                            serde_json::json!({
+                                "customer_name": row.customer_name,
+                                "total_spent": format!("{:.2}", row.total_spent),
+                                "order_count": row.order_count
+                            })
+                        }).collect();
     
                         (
                             StatusCode::OK,

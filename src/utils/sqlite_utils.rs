@@ -5,6 +5,7 @@ pub struct SqliteUtils;
 
 impl SqliteUtils {
 
+    // Function that connects to the database
     pub async fn connect_db() -> Result<SqlitePool, Error> {
 
         let db: &str = "sqlite://db/store.db";
