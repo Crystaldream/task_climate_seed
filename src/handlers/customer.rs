@@ -6,7 +6,7 @@ use log::{error, info};
 use crate::utils::sqlite_utils::SqliteUtils;
 
 #[derive(Serialize, Deserialize, FromRow)]
-struct Row {
+pub struct Row {
     #[serde(rename = "CustomerName")]
     pub customer_name: String,
     #[serde(rename = "TotalSpent")]
