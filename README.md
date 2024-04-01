@@ -159,5 +159,5 @@ Creation of the CustomerOrderSummary view
 The view is composed of three columns: CustomerName, TotalSpent, OrderCount.
 The 4 tables are linked to each other with their primary and foreign keys.
 TotalSpent is calculated by summing the Amount of the table Order for each consumer, when the order of the current consumer had order items with products of the category "Electronics", and when the date of the order was made in the current year.
-A counter was used on OrderCount to get a value of unique OrderId's for the current customer.
+A counter was used as OrderCount to get a value of unique OrderId's for the current customer.
 The limit of the top 5 customers is specified when querying the view CustomerOrderSummary, and they are ordered by the TotalSpent value in descending order.
