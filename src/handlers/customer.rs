@@ -2,7 +2,7 @@
 use axum::{http::StatusCode, response::IntoResponse, Json};
 use serde::{Serialize, Deserialize};
 use sqlx::{FromRow, Error, SqlitePool};
-use log::error;
+use log::{error, info};
 use crate::utils::sqlite_utils::SqliteUtils;
 
 #[derive(Serialize, Deserialize, FromRow)]
@@ -55,6 +55,8 @@ impl Customer {
                     }).collect();
         
                     if rows.is_empty() {
+
+                        info!("View CustomerOrderSummary response successful but empty");
     
                         (
                             StatusCode::OK,
@@ -64,7 +66,9 @@ impl Customer {
                             }))
                         )
     
-                    } else { 
+                    } else {
+
+                        info!("View CustomerOrderSummary response successful");
     
                         (
                             StatusCode::OK,
